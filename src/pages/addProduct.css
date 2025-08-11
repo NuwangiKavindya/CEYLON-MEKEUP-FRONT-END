@@ -1,0 +1,36 @@
+.add-makeup-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff0f5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.makeup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.makeup-form input,
+.makeup-form textarea {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.makeup-form button {
+  padding: 10px;
+  background-color: #d63384;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.makeup-form button:hover {
+  background-color: #c2185b;
+}

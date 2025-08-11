@@ -1,0 +1,20 @@
+.main-register{
+   
+    display: flex;
+    justify-content: center;
+    
+}
+
+.line{
+    text-align: center;
+    margin: 10px;
+}
+
+.alert{
+    display: none;
+}
+
+
+.back-to-login{
+    text-align:center;
+}

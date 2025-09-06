@@ -3,8 +3,16 @@ import Footer from "../component/footer";
 import Product from "./Product";
 import Categry from "./../component/category";
 import './Home.css';
+import { useNavigate } from "react-router-dom";
+
+
+
+
+
+
 
 function Home() {
+  const navigate = useNavigate(); 
   return (
     <div>
       <script src="https://cdn.tailwindcss.com"></script>
@@ -20,51 +28,42 @@ function Home() {
           justifyContent: 'center',
           alignItems: 'center',
           height: '100vh',
+          
+      
         }}
       >
 
-          {/* Blurred background image */}
-        <div
-          style={{
-            backgroundImage: 'url("./assets/images/nature-flower-plant-summer.jpg")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'blur(2px)',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 0,
-          }}
-        ></div>
+    
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <div
-              style={{
-                width: '90vw',
-                height: '90vh',
-                margin: '0 auto',
-                overflow: 'hidden',
-                borderRadius: '12px',
-              }}
-            >
-              <video
-                className="d-block w-100"
-                autoPlay
-                muted
-                loop
-                playsInline
+            {/* Video Section - Fullscreen */}
+              <div
                 style={{
-                  objectFit: 'cover',
-                  width: '100%',
-                  height: '100%',
+                  position: "relative",
+                  width: "100%",
+                  height: "100vh",
+                  overflow: "hidden",
                 }}
               >
-                <source src="assets/videos/video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover", // ensures video fills without distortion
+                  }}
+                >
+                  <source src="assets/videos/9698152-uhd_3840_2160_25fps.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+
           </div>
         </div>
       </div>
@@ -166,7 +165,7 @@ function Home() {
            Shop by Skin Type and Concern
 
         </p>
-                          <div style={{ marginTop: '10px' }}></div>
+             <div style={{ marginTop: '10px' }}></div>
 
 
         <div
@@ -179,7 +178,11 @@ function Home() {
 >
   {/* Card 1 */}
   <div
+
+  onClick={() => navigate("/sensitiveSkin")}
+    
     style={{
+
       width: '250px',
       borderRadius: '12px',
       overflow: 'hidden',
@@ -208,6 +211,7 @@ function Home() {
 
   {/* Card 2 */}
   <div
+  onClick={() => navigate("/oilySkin")}
     style={{
       width: '250px',
       borderRadius: '12px',
@@ -237,6 +241,7 @@ function Home() {
 
   {/* Card 3 */}
   <div
+  onClick={() => navigate("/normalSkin")}
     style={{
       width: '250px',
       borderRadius: '12px',
@@ -266,6 +271,7 @@ function Home() {
 
   {/* Card 4 */}
   <div
+  onClick={() => navigate("/drySkin")}
     style={{
       width: '250px',
       borderRadius: '12px',
@@ -295,6 +301,7 @@ function Home() {
 
   {/* Card 5 */}
   <div
+  onClick={() => navigate("/combinationSkin")}
     style={{
       width: '250px',
       borderRadius: '12px',

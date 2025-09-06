@@ -1,0 +1,87 @@
+/* manageCategory.css */
+body {
+  background: #fff0f5;
+  font-family: "Poppins", sans-serif;
+}
+
+.category-container {
+  padding: 30px;
+  text-align: center;
+}
+
+.category-container h2 {
+  color: #d63384;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.category-card {
+  background: linear-gradient(145deg, #ffe6f0, #ffd9e8);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  width: 220px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+.img-wrapper {
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.img-wrapper img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.img-wrapper img:hover {
+  transform: scale(1.1);
+}
+
+.category-card h3 {
+  color: #d63384;
+  margin-bottom: 15px;
+}
+
+.category-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.category-actions button {
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.category-actions button:hover {
+  opacity: 0.85;
+}
+
+.category-actions .delete {
+  background: #ff4d6d;
+  color: white;
+}
+
+.category-actions button:not(.delete) {
+  background: #d63384;
+  color: white;
+}

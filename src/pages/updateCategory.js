@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import './updateCategory.css'; // CSS for gradient, shadow, etc.
 
 function UpdateCategory({ categoryId }) {
@@ -8,6 +9,9 @@ function UpdateCategory({ categoryId }) {
     details: '',
     image: null,
   });
+
+  const { idm } = useParams();
+  console.log("Category ID:", idm);
 
   const [previewImage, setPreviewImage] = useState(null);
 

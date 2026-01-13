@@ -29,10 +29,12 @@ const Register = () => {
     return(
 
         
+
+        
    
 
-        <div className="main-register">
-            <div className="card p-4 shadow-lg" style={{ width: "35rem", height: "auto", margin: "auto", marginTop: "40px" }}>
+        <div className="main-register h-screen w-full flex justify-center items-center bg-cover bg-center" style={{ backgroundImage: "url('assets/images/2a7c7b57f3dfa54684927e118e4579e2.jpg')" }}>
+<div className=" p-4 shadow-lg bg-pink-100 rounded-xl " style={{ width: "35rem" }}>
 
                 <h2 className="text-center mb-4">New User Registration</h2>
 
@@ -113,9 +115,13 @@ const Register = () => {
                         </label>
                     </div>
 
-                    <button type="submit" className="btn btn-primary w-100">
-                        Register
-                    </button>
+                   <button
+  type="submit"
+  className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded-lg transition"
+>
+  Register
+</button>
+
 
                     <h5 className="line">Sign in and get extra benifits with GlowMuse</h5>
 

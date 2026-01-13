@@ -20,8 +20,28 @@ function Login() {
   };
 
   return (
-    <div className="d-flex vh-100 justify-content-center align-items-center bg-light">
-      <div className="card p-4 shadow-lg" style={{ width: "22rem" }}>
+    
+<div
+  className="d-flex vh-100 justify-content-start align-items-center flex-grow-0 mr-5 bg-cover bg-center"
+  style={{
+    backgroundImage: "url('assets/images/2a7c7b57f3dfa54684927e118e4579e2.jpg')"
+  }}
+>
+<div className="flex-shrink-0 ml-[3cm] mt-[2cm] mb-[2cm] flex items-center justify-center hover:scale-105">
+  <img
+    src="assets/images/43a3af87d03e8b80bafbc58f405fbb45.jpg"
+    alt="Login Visual"
+    className="w-[20cm] h-[15cm] object-cover rounded-lg  shadow-lg"
+  />
+</div>
+
+      <div
+  className="card p-4 shadow-lg  bg-pink-100 bg-transparent"
+  style={{ width: "32rem" }}
+>
+
+        
+        <div className="card"></div>
         <h2 className="text-center mb-4">Login</h2>
 
         {message && (
@@ -53,9 +73,13 @@ function Login() {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">
-            Login
-          </button>
+         <button
+  type="submit"
+  className="w-100 bg-pink-500 hover:bg-pink-600 text-white py-2 rounded-lg transition"
+>
+  Login
+</button>
+
 
           <div className="r-page mt-3 text-center">
             <p>
@@ -65,6 +89,8 @@ function Login() {
           </div>
         </form>
       </div>
+
+
     </div>
   );
 }

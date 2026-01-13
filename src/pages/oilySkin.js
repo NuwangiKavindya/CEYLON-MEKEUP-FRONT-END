@@ -23,7 +23,7 @@ function OilySkin() {
   ];
 
   return (
-    <div className="min-h-screen bg-green-50 text-gray-800">
+    <div className="min-h-screen bg-green-50 text-gray-800 pb-24">
       {/* Hero Section */}
       <div
         className="relative h-[60vh] bg-cover bg-center flex items-center justify-center"

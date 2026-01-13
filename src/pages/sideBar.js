@@ -2,9 +2,10 @@ import React from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import MakeupUserProfile from "./profile";
 import ManageCategory from "./manageCategory";
-import AddMakeupProduct from "./addProduct";
+
 import ManageProducts from "./manageProduct";
 import AddCategory from "./addCategory";
+import AddMakeupProduct from "./addMakeupProduct";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Sidebar() {
         return <AddCategory />;
       case "manageCategory":
         return <ManageCategory />;
-      case "addProduct":
+      case "addMakeupProduct":
         return <AddMakeupProduct />;
       case "manageProduct":
         return <ManageProducts />;
@@ -75,7 +76,7 @@ export default function Sidebar() {
           </NavLink>
 
           <NavLink
-            to="/dashboard/addProduct"
+            to="/dashboard/addMakeupProduct"
             className={({ isActive }) =>
               `block px-4 py-2 rounded-lg ${
                 isActive ? "bg-pink-600 text-white" : "hover:bg-pink-200 text-pink-700"

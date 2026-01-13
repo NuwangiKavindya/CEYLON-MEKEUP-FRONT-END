@@ -23,8 +23,8 @@ function SensitiveSkin() {
   ];
 
   return (
-    <div className="min-h-screen bg-pink-50 text-gray-800">
-      {/* Hero Section */}
+    <div className="min-h-screen bg-pink-50 text-gray-800 pb-24">
+      
       <div className="relative h-[60vh] bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: "url('./assets/images/sensitive-banner.jpg')" }}
       >

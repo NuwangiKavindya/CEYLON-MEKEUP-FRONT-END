@@ -1,7 +1,7 @@
 // src/pages/AddMakeupProduct.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import './addProduct.css'; // Optional: Add custom styles
+import './addMakeupProduct.css'; // Optional: Add custom styles
 
 function AddMakeupProduct() {
   const [formData, setFormData] = useState({
@@ -31,11 +31,10 @@ function AddMakeupProduct() {
     });
 
     try {
-      const response = await axios.post('http://localhost:5000/api/products', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+     const response = await axios.post('http://localhost:5001/api/products', data, {
+  headers: { 'Content-Type': 'multipart/form-data' },
+});
+
       alert('Makeup product added successfully!');
     } catch (error) {
       console.error(error);

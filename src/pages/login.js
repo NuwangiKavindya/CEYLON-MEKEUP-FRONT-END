@@ -11,13 +11,36 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await loginUser(form);
-    if (response.status === 200) {
-      navigate("/dashboard");
-    } else {
-      setMessage(response.message || "Login Failed. Please try again.");
+    setMessage('');
+
+    try {
+      const response = await loginUser(form);
+      console.log('Login response:', response);
+      
+      // Axios treats any 2xx as success
+      if (response.data && response.data.token) {
+        const { token, user } = response.data;
+        
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user || {}));
+        
+        setMessage('Login successful! Redirecting...');
+        setTimeout(() => navigate("/dashboard"), 500);
+      } else {
+        // This handles cases where 200 OK is returned but body is unexpected
+        setMessage("Unexpected response from server.");
+      }
+
+    } catch (error) {
+      console.error('Login error:', error);
+      
+      // If the backend sends a 400 or 401, Axios throws an error and lands here
+      const errorMsg = error.response?.data?.message || "Invalid email or password.";
+      setMessage(errorMsg);
     }
   };
+
+
 
   return (
     

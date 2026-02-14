@@ -1,4 +1,5 @@
 // src/pages/Dashboard.jsx
+import StatCard from '../component/StateCard';
 import React from 'react';
 import {
   LineChart,
@@ -114,11 +115,7 @@ const StatusBadge = ({ children, color }) => {
       {children}
     </span>
   );
-
-  
-
-
-
 };
 
 export default Dashboard;
+

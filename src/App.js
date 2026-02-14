@@ -1,6 +1,11 @@
 import React from 'react';
 import './App.css';
 
+// 🛒 import CartProvider
+import { CartProvider } from "./contexts/CartContext";
+import Payment from "./pages/Payment";
+
+
 import Home from './pages/Home';
 import Login from './pages/login';
 import Register from './pages/register';
@@ -28,21 +33,25 @@ import { WishlistProvider } from "./contexts/WishlistContext";  // ✅ WishlistP
 import WishlistPage from "./pages/WishlistPage"; // ✅ correct import
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "./firebase";
-
+import CustomerDashboard from "./pages/CustomerDashboard";
+// import StateCard from "./component/StateCard";
 
 import Navbar from './component/navbar';
 import Footer from './component/footer';
 import Example from './pages/Example';
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-// 🛒 import CartProvider
-import { CartProvider } from "./contexts/CartContext";
-import Payment from "./pages/Payment";
+// Protected Route Component
+const ProtectedRoute = ({ element }) => {
+  const token = localStorage.getItem('token');
+  return token ? element : <Navigate to="/login" replace />;
+};
+
 
 function App() {
-    const signInWithGoogle = async () => {
+  const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
@@ -61,41 +70,42 @@ function App() {
         <WishlistProvider>
           <div>
             <Navbar />
-            
+
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/product' element={<Product />} />
               <Route path='/about' element={<AboutUs />} />
-              <Route path='/dashboard' element={<Dashboard />} />
-              <Route path='/userDashboard' element={<UserDashboard />} />
+              <Route path='/dashboard' element={<ProtectedRoute element={<Dashboard />} />} />
+              <Route path='/userDashboard' element={<ProtectedRoute element={<UserDashboard />} />} />
               <Route path='/examp/:page' element={<Example />} />
-              <Route path='/updateProduct' element={<UpdateProduct />} />
-              <Route path="/manageProduct" element={<ManageProduct />} />
-              <Route path="/updateCategory/:idm" element={<UpdateCategory />} />
-              <Route path="/manageCategory" element={<ManageCategory />} />
-              <Route path="/addCategory" element={<AddCategory />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path='/editProfile' element={<EditProfile />} />
-              <Route path='/sideBar' element={<Sidebar />} />
+              <Route path='/updateProduct' element={<ProtectedRoute element={<UpdateProduct />} />} />
+              <Route path="/manageProduct" element={<ProtectedRoute element={<ManageProduct />} />} />
+              <Route path="/updateCategory/:idm" element={<ProtectedRoute element={<UpdateCategory />} />} />
+              <Route path="/manageCategory" element={<ProtectedRoute element={<ManageCategory />} />} />
+              <Route path="/addCategory" element={<ProtectedRoute element={<AddCategory />} />} />
+              <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+              <Route path='/editProfile' element={<ProtectedRoute element={<EditProfile />} />} />
+              <Route path='/sideBar' element={<ProtectedRoute element={<Sidebar />} />} />
               <Route path='/sensitiveSkin' element={<SensitiveSkin />} />
               <Route path="/oilySkin" element={<OilySkinCard />} />
               <Route path="/normalSkin" element={<NormalSkin />} />
               <Route path="/drySkin" element={<DrySkin />} />
               <Route path="/combinationSkin" element={<CombinationSkin />} />
               <Route path="/searchResults" element={<SearchResults />} />
-              <Route path='/addmakeupProduct' element={<AddMakeupProduct />} />
+              <Route path='/addmakeupProduct' element={<ProtectedRoute element={<AddMakeupProduct />} />} />
               <Route path="/cartPage" element={<CartPage />} />
-              <Route path="/wishlist" element={<WishlistPage />} /> 
-              
+              <Route path="/wishlist" element={<WishlistPage />} />
 
-              <Route path="/dashboard/*" element={<Sidebar />} />
-              <Route path="/dashboard/:page" element={<Sidebar />} />
-              <Route path="/payment" element={<Payment />} />
+
+              <Route path="/dashboard/*" element={<ProtectedRoute element={<Dashboard />} />} />
+              <Route path="/dashboard/:page" element={<ProtectedRoute element={<Sidebar />} />} />
+              <Route path="/payment" element={<ProtectedRoute element={<Payment />} />} />
+              <Route path="/dashboard" element={<CustomerDashboard />} />
+
+
             </Routes>
-    
-
             <Footer />
           </div>
         </WishlistProvider>

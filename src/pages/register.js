@@ -18,11 +18,17 @@ const Register = () => {
         e.preventDefault();
         try{
             const res = await register(form);
-            setMessage(res.data.message);
+            console.log('registration response:', res);
+            setMessage(res.data.message || 'Registration successful!');
             setTimeout(()=> navigate('/login'), 2000);
         }
         catch (error) {
-            setMessage(error.response?.data?.error || 'Registration faild.');
+            console.error('Registration error:', error);
+            const errorMsg = error.response?.data?.error ||
+                error.response?.data?.message ||
+                error.message ||
+                'Registration failed.';
+            setMessage(errorMsg);
         }
     }
 

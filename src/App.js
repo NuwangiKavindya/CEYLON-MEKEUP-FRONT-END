@@ -31,8 +31,7 @@ import AddMakeupProduct from './pages/addMakeupProduct';
 import CartPage from "./pages/cartPage";
 import { WishlistProvider } from "./contexts/WishlistContext";  // ✅ WishlistProvider import එක
 import WishlistPage from "./pages/WishlistPage"; // ✅ correct import
-import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "./firebase";
+
 import CustomerDashboard from "./pages/CustomerDashboard";
 // import StateCard from "./component/StateCard";
 

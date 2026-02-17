@@ -1,5 +1,5 @@
 // src/pages/Dashboard.jsx
-import StatCard from '../component/StateCard';
+
 import React from 'react';
 import {
   LineChart,
@@ -28,10 +28,10 @@ const Dashboard = () => {
       <aside className="w-64 bg-pink-100 p-6">
         <h2 className="text-xl font-bold mb-6 text-pink-700">GlowMuse</h2>
         <nav className="flex flex-col space-y-4 text-pink-800">
-          <a href="#" className="hover:text-pink-600">Dashboard</a>
-          <a href="#" className="hover:text-pink-600">Orders</a>
-          <a href="#" className="hover:text-pink-600">Products</a>
-          <a href="#" className="hover:text-pink-600">Customers</a>
+          <button className="hover:text-pink-600 text-left">Dashboard</button>
+          <button className="hover:text-pink-600 text-left">Orders</button>
+          <button className="hover:text-pink-600 text-left">Products</button>
+          <button className="hover:text-pink-600 text-left">Customers</button>
         </nav>
       </aside>
 

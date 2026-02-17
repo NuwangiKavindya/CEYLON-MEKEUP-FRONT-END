@@ -60,7 +60,7 @@ export default function AddCategory() {
       formData.append("name", name.trim());
       formData.append("image", imageFile);
 
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:5001/api/categories/add",
         formData,
         {

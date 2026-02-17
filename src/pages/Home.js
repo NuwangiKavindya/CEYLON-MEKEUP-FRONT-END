@@ -1,6 +1,5 @@
 import React from "react";
-import Footer from "../component/footer";
-import Product from "./Product";
+
 import Categry from "./../component/category";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
@@ -19,13 +18,13 @@ function Home() {
         data-bs-ride="carousel"
         data-bs-interval="3000"
         data-bs-pause="false"
-        data-bs-wrap="true" 
-        
+        data-bs-wrap="true"
+
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          
+
         }}
       >
         {/* Indicators */}
@@ -137,13 +136,13 @@ function Home() {
 
           <div className="card-container">
             <div className="card-style"
-            
+
             >
               <img
                 src="./assets/images/home/70d6f42938ea6d1ed7e6822f67fbd888.jpg"
                 className="card-image"
                 alt="Card 1"
-                style={{ cursor: "pointer"}}
+                style={{ cursor: "pointer" }}
                 onClick={() => navigate("/Product")}
               />
               <div className="card-content txt-align-left left-20px">
@@ -158,7 +157,7 @@ function Home() {
                 src="./assets/images/home/c184b7894c0040fca45b6da397ef0f6a.jpg"
                 className="card-image"
                 alt="Card 2"
-                 style={{ cursor: "pointer"}}
+                style={{ cursor: "pointer" }}
                 onClick={() => navigate("/Product")}
               />
               <div className="card-content text-align-right right-20px">
@@ -168,29 +167,29 @@ function Home() {
               </div>
             </div>
 
-             <div className="card-style">
-            <img
-              src="./assets/images/category/KJC_GLK_25_CP_486_V2_WS.webp"
-              className="card-image"
-              alt="Card 3"
-               style={{ cursor: "pointer"}}
+            <div className="card-style">
+              <img
+                src="./assets/images/category/KJC_GLK_25_CP_486_V2_WS.webp"
+                className="card-image"
+                alt="Card 3"
+                style={{ cursor: "pointer" }}
                 onClick={() => navigate("/Product")}
-            />
-            <div
-              className="card-content text-align-left left-20px"
-             
-            >
-              FRIZZ-FREE, SALON-SOFT HAIR
-              <br />
-              IN JUST ONE USE?
+              />
+              <div
+                className="card-content text-align-left left-20px"
+
+              >
+                FRIZZ-FREE, SALON-SOFT HAIR
+                <br />
+                IN JUST ONE USE?
+              </div>
             </div>
-          </div>
 
           </div>
 
-          
 
-         
+
+
         </div>
       </div>
 

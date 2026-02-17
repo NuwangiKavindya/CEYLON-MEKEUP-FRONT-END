@@ -1,8 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function Example(){
+export default function Example() {
     const navigate = useNavigate();
-    const { page } = useParams();
+    // const { page } = useParams();
 
     const Hello = (name) => {
         console.log(`Hello, ${name}`);
@@ -13,12 +13,12 @@ export default function Example(){
     }
 
     Hello('Nuwangi');
-    
-    return(
+
+    return (
         <>
-        <button onClick={()=>setNavigate('login')}>login</button>
-        <button onClick={()=>setNavigate('register')}>register</button>
-        <button onClick={()=>setNavigate('home')}>home</button>
+            <button onClick={() => setNavigate('login')}>login</button>
+            <button onClick={() => setNavigate('register')}>register</button>
+            <button onClick={() => setNavigate('home')}>home</button>
         </>
     );
 }

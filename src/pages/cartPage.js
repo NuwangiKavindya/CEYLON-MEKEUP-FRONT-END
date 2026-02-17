@@ -17,7 +17,7 @@ export default function CartPage() {
     );
   }
 
-  console.log("🛒 Cart data =>", cart); 
+  console.log("🛒 Cart data =>", cart);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -25,7 +25,7 @@ export default function CartPage() {
       <div className="space-y-4">
         {cart.map((item) => (
           <div key={item.id} className="flex items-center gap-4 border p-4 rounded">
-            <img src={item.image} className="w-20 h-20 object-cover rounded" />
+            <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded" />
             <div className="flex-1">
               <div className="font-semibold">{item.name}</div>
               <div className="text-sm text-gray-500">${item.price.toFixed(2)}</div>

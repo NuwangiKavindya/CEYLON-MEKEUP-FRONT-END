@@ -31,9 +31,9 @@ function AddMakeupProduct() {
     });
 
     try {
-     const response = await axios.post('http://localhost:5001/api/products', data, {
-  headers: { 'Content-Type': 'multipart/form-data' },
-});
+      await axios.post('http://localhost:5001/api/products', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
 
       alert('Makeup product added successfully!');
     } catch (error) {

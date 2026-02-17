@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {
-  Home, Users, Folder, Calendar, FileText, PieChart, Settings, Menu, X, Book, LogOut
+  Home, Menu, X, Book, LogOut
 } from 'lucide-react';
 
 
-  import Category from '../component/category';
+import Category from '../component/category';
 
 
 export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
-  const { page, resourceId } = useParams();
-  const [selectTab, setSelectTab] = useState("Dashboard");
+  const { page } = useParams();
 
-  
+
+
 
   const setNavigation = (page) => {
     navigate(`/dashboard/${page}`);
@@ -25,9 +25,7 @@ export default function Sidebar() {
     navigate('/');
   }
 
-  const newFuntion = () => {
-    console.log('Hello world!');
-  }
+
 
 
 
@@ -36,7 +34,7 @@ export default function Sidebar() {
       case 'categories':
         return <Category />;
       default:
-        return <Category/>;
+        return <Category />;
     }
   };
 
@@ -47,34 +45,31 @@ export default function Sidebar() {
 
         <nav className="space-y-2">
           <div
-            onClick={()=>setNavigation("categories")} key={"categories"}
-            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium ${
-              "categories" === page || page === undefined
+            onClick={() => setNavigation("categories")} key={"categories"}
+            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium ${"categories" === page || page === undefined
                 ? 'bg-indigo-50 text-indigo-600'
                 : 'text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
           >
             {<Home size={18} />}
             <span>Category</span>
           </div>
           <div
-            onClick={()=>setNavigation("add-course")} key={"add-course"}
-            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium ${
-              "add-course" === page
+            onClick={() => setNavigation("add-course")} key={"add-course"}
+            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium ${"add-course" === page
                 ? 'bg-indigo-50 text-indigo-600'
                 : 'text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
           >
             {<Book size={18} />}
             <span>Add Course</span>
           </div>
           <div
-            onClick={()=>setNavigation("my-courses")} key={"my-courses"}
-            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium ${
-              "my-courses" === page || page === 'manage-materials'
+            onClick={() => setNavigation("my-courses")} key={"my-courses"}
+            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium ${"my-courses" === page || page === 'manage-materials'
                 ? 'bg-indigo-50 text-indigo-600'
                 : 'text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
           >
             {<Book size={18} />}
             <span>My Courses</span>
@@ -83,13 +78,13 @@ export default function Sidebar() {
       </div>
 
       <div className="mt-auto px-3 py-2 bg-green-600 hover:bg-green-500 rounded-3xl flex items-center gap-3 text-sm text-white"
-      onClick={goHome}
+        onClick={goHome}
       >
         <Home size={18} />
         <span>Home</span>
       </div>
       <div className="px-3 mt-2 py-2 bg-red-600 hover:bg-red-500 rounded-3xl flex items-center gap-3 text-sm text-white"
-      onClick={goHome}
+        onClick={goHome}
       >
         <LogOut size={18} />
         <span>Sign out</span>

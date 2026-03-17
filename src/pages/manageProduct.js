@@ -1,7 +1,7 @@
 // src/pages/ManageProducts.js
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { axiosInstance } from '../api/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ManageProducts() {
@@ -21,14 +21,14 @@ function ManageProducts() {
     fetchProducts();
   }, []);
 
-const fetchProducts = async () => {
-  try {
-    const res = await axios.get('/api/products'); // No localhost here
-    setProducts(res.data);
-  } catch (error) {
-    console.error("Error fetching products:", error);
-  }
-};
+  const fetchProducts = async () => {
+    try {
+      const res = await axiosInstance.get('products'); // No localhost here
+      setProducts(res.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
 
 
   const handleChange = (e) => {
@@ -48,9 +48,9 @@ const fetchProducts = async () => {
 
     try {
       if (editingId) {
-        await axios.put(`/api/products/${editingId}`, data);
+        await axiosInstance.put(`products/${editingId}`, data);
       } else {
-        await axios.post('/api/products', data);
+        await axiosInstance.post('products', data);
       }
 
       fetchProducts();
@@ -81,7 +81,7 @@ const fetchProducts = async () => {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/api/products/${id}`);
+    await axiosInstance.delete(`products/${id}`);
     fetchProducts();
   };
 
@@ -160,4 +160,3 @@ const fetchProducts = async () => {
 }
 
 export default ManageProducts;
- 

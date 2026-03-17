@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import axios from "axios";
+import { axiosInstance } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import "./addCategory.css";
 
@@ -60,8 +60,8 @@ export default function AddCategory() {
       formData.append("name", name.trim());
       formData.append("image", imageFile);
 
-      await axios.post(
-        "http://localhost:5001/api/categories/add",
+      await axiosInstance.post(
+        "categories/add",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

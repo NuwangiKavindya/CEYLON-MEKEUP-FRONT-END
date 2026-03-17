@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { axiosInstance } from '../api/auth';
 import { useParams } from 'react-router-dom';
 import './updateCategory.css'; // CSS for gradient, shadow, etc.
 
@@ -44,7 +44,9 @@ function UpdateCategory({ categoryId }) {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/category/update/${categoryId}`, data);
+      await axiosInstance.put(`categories/${idm}`, data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       alert('✅ Category updated successfully!');
     } catch (err) {
       console.error(err);

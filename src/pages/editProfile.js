@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { fetchUserProfile, updateUserProfile } from "../api/data";
+import { useNavigate } from "react-router-dom";
 
 export default function EditProfile() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    photo: null,
-    photoPreview: null,
+    firstname: "",
+    secondname: "",
+    dateofbirth: "",
   });
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const response = await fetchUserProfile();
+        const { firstname, secondname, dateofbirth } = response.data;
+        setFormData({
+          firstname: firstname || "",
+          secondname: secondname || "",
+          dateofbirth: dateofbirth ? new Date(dateofbirth).toISOString().split('T')[0] : "",
+        });
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getProfile();
+  }, []);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -15,32 +37,20 @@ export default function EditProfile() {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle photo upload
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData({
-        ...formData,
-        photo: file,
-        photoPreview: URL.createObjectURL(file),
-      });
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateUserProfile(formData);
+      alert("Profile updated successfully!");
+      navigate("/profile");
+    } catch (error) {
+      console.error("Update error:", error);
+      setMessage("Failed to update profile.");
     }
   };
 
-  // Handle form submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Profile Data:", formData);
-
-    // 👉 Later you can send this data to your backend
-    // const data = new FormData();
-    // data.append("name", formData.name);
-    // data.append("email", formData.email);
-    // data.append("phone", formData.phone);
-    // data.append("photo", formData.photo);
-
-    alert("Profile updated successfully!");
-  };
+  if (loading) return <div className="text-center p-20 text-pink-700">Loading profile...</div>;
 
   return (
     <div className="min-h-screen bg-pink-50 text-pink-900 p-6">
@@ -49,68 +59,47 @@ export default function EditProfile() {
           Edit Profile
         </h2>
 
-        {/* Profile Photo Preview */}
-        <div className="flex justify-center mb-4">
-          <label htmlFor="photo-upload" className="cursor-pointer">
-            {formData.photoPreview ? (
-              <img
-                src={formData.photoPreview}
-                alt="Profile Preview"
-                className="w-28 h-28 rounded-full object-cover border-4 border-pink-300"
-              />
-            ) : (
-              <div className="w-28 h-28 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 text-sm border-2 border-dashed border-pink-300">
-                Upload Photo
-              </div>
-            )}
-            <input
-              id="photo-upload"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handlePhotoChange}
-            />
-          </label>
-        </div>
+        {message && (
+          <div className="alert alert-danger mb-4 text-red-500">{message}</div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium">Name</label>
+            <label className="block text-sm font-medium">First Name</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="firstname"
+              value={formData.firstname}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded-lg mt-1 focus:ring-2 focus:ring-pink-400"
-              placeholder="Enter your name"
+              placeholder="Enter your first name"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Email</label>
+            <label className="block text-sm font-medium">Second Name</label>
             <input
-              type="email"
-              name="email"
-              value={formData.email}
+              type="text"
+              name="secondname"
+              value={formData.secondname}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded-lg mt-1 focus:ring-2 focus:ring-pink-400"
-              placeholder="Enter your email"
+              placeholder="Enter your second name"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Phone Number</label>
+            <label className="block text-sm font-medium">Date of Birth</label>
             <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
+              type="date"
+              name="dateofbirth"
+              value={formData.dateofbirth}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded-lg mt-1 focus:ring-2 focus:ring-pink-400"
-              placeholder="Enter your phone number"
             />
           </div>
 

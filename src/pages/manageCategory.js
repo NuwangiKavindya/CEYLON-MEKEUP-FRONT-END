@@ -1,6 +1,7 @@
 // ManageCategory.js
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "../api/auth";
+import { useNavigate } from "react-router-dom";
 import "./manageCategory.css";
 
 
@@ -13,7 +14,7 @@ function ManageCategory() {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/categories");
+      const res = await axiosInstance.get("categories");
       if (Array.isArray(res.data) && res.data.length > 0) {
         setCategories(res.data);
       } else {
@@ -34,7 +35,7 @@ function ManageCategory() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this category?")) {
       try {
-        await axios.delete(`http://localhost:5001/api/categories/${id}`);
+        await axiosInstance.delete(`categories/${id}`);
         setCategories(categories.filter((cat) => cat._id !== id));
       } catch (error) {
         console.error("Error deleting category:", error);
@@ -42,8 +43,10 @@ function ManageCategory() {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleUpdate = (id) => {
-    window.location.href = `/updateCategory/${id}`;
+    navigate(`/dashboard/updateCategory/${id}`);
   };
 
   return (
@@ -54,7 +57,7 @@ function ManageCategory() {
           <div key={cat._id} className="category-card">
             <div className="img-wrapper">
               <img
-                src={`http://localhost:5001/${cat.image}`}
+                src={`${process.env.REACT_APP_API_URL}${cat.image}`}
                 alt={cat.name}
                 onError={(e) => (e.target.src = "https://via.placeholder.com/200")}
               />

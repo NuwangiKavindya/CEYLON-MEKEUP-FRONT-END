@@ -1,116 +1,50 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import "./category.css";
+import { useNavigate } from "react-router-dom";
+import { fetchCategories } from "../api/data";
 
 function Category() {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await fetchCategories();
+        setCategories(response.data);
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+        setError("Failed to load categories.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    getCategories();
+  }, []);
+
+  if (loading) return <div className="text-center p-10 text-pink-300">Loading categories...</div>;
+  if (error) return null;
+
   return (
-    <div>
-      <h1 class="heading"> Chosen For You</h1>
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3">
-        <a href="/product">
-
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="assets/images/perfume/parfum1.webp" alt="Perfumes" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Perfumes</center></p>
+    <div className="category-section">
+      <div className="category-scroll-container">
+        {categories.map((category) => (
+          <div
+            key={category._id || category.id}
+            className="category-pill group"
+            onClick={() => navigate(`/product?category=${category.name}`)}
+          >
+            <div className="pill-content">
+              <span className="pill-name">{category.name}</span>
+              <div className="pill-line"></div>
             </div>
           </div>
-        </a>
-
-
-        <a href="/product">
-
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/makeup-cosmetics.webp" alt="Makeup" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Makeup</center></p>
-            </div>
-          </div>
-        </a>
-
-        <a href="/product">
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/caro2.webp" alt="Face" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Face</center></p>
-            </div>
-          </div>
-        </a>
-
-
-        <a href="/product">
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/category/cat1.jpg" alt="Bath and Body" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Bath and Body</center></p>
-            </div>
-          </div>
-        </a>
-
-        <a href="/product">
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/category/cat2.webp" alt="Men's Products" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Men</center></p>
-            </div>
-          </div>
-        </a>
-
-        <a href="/product">
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/category/cat3.jpg" alt="Accessories" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center> Accessoires</center></p>
-            </div>
-          </div>
-
-        </a>
-
-        <a href="/product">
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/category/cat4.jpg" alt="Health & Care" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Health & Care</center></p>
-            </div>
-          </div>
-
-        </a>
-
-        <a href="/product">
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/category/Beauty_gadgets.jpg" alt="Tools and Device" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Tools and Device</center></p>
-            </div>
-          </div>
-
-        </a>
-
-        <a href="/product">
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/category/foot-care.jpg" alt="Foot Care" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Foot Care</center></p>
-            </div>
-          </div>
-
-        </a>
-
-
-        <a href="/product">
-          <div class="card" style={{ width: "250px" }}>
-            <img class="card-img-top" src="./assets/images/category/GettyImages-182175749-5b26db815a2449b29b1b4e4f1c76a0b7.jpg" alt="Sunscreen" style={{ width: "100%", height: "200px" }} />
-            <div class="card-body">
-              <p class="card-text"><center>Sunscreen (SPF)</center></p>
-            </div>
-          </div>
-
-        </a>
-
+        ))}
       </div>
     </div>
   );
-
 }
+
 export default Category;

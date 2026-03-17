@@ -1,133 +1,107 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";  // useNavigate import kala
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Search, User, Heart, ShoppingBag, Menu, X } from "lucide-react";
 import './navbar.css';
-import { FaHeart } from "react-icons/fa";  // Wishlist icon import
 
 function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();  // navigate hook
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
-  // handle search submit
   const handleSearch = async (e) => {
-    e.preventDefault(); // prevent page reload
+    e.preventDefault();
+    if (!searchTerm.trim()) return;
     try {
-      const res = await axios.get(`http://localhost:5000/api/products/search?query=${searchTerm}`);
-      console.log("Search results:", res.data); 
-
-      // redirect to SearchResults page with state
-      navigate("/search", { state: { results: res.data, query: searchTerm } });
-
+      const res = await axios.get(`http://localhost:5001/api/products/search?query=${searchTerm}`);
+      navigate(`/search?query=${searchTerm}`, { state: { results: res.data, query: searchTerm } });
     } catch (err) {
       console.error(err);
-      alert("Error fetching search results");
     }
   };
 
   return (
-    <div>
-      <nav
-        className="navbar navbar-expand-sm navbar-light"
-        style={{ backgroundColor: 'white' }}
-      >
-        <div className="container-fluid">
+    <nav className="navbar-glass sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <a
-            className="navbar-brand d-flex align-items-center"
-            href="/"  // ✅ fixed ESLint warning
-            style={{ gap: '10px', marginLeft: '20px' }}
-          >
-            <img
-              src="/assets/images/logo.png"
-              alt="logo"
-              className="img-fluid"
-              style={{ width: '50px', height: '50px' }}
-            />
-            <span className="nav-link-logo">GlowMuse</span>
-          </a>
-
-          {/* Toggler for mobile */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapsibleNavbar"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          {/* Search Bar */}
-          <form
-            className="d-flex"
-            role="search"
-            style={{ flex: 1, maxWidth: "500px", margin: "0 auto" }}
-            onSubmit={handleSearch}
-          >
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search products..."
-              aria-label="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                border: "1px solid #ffb6c1",
-                backgroundColor: "#ffe4ec",
-                color: "#cc3366",
-              }}
-            />
-            <button
-              className="btn"
-              type="submit"
-              style={{
-                backgroundColor: "#ffb6c1",
-                borderColor: "#ffb6c1",
-                color: "white",
-              }}
-            >
-              Search
-            </button>
-          </form>
-
-          {/* Icons Section */}
-          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-            {/* Login */}
-            <a className="login-icon" href="/login">
-              <div className="nav-icon">
-                <svg
-                  style={{ color: 'black', opacity: '70%' }}
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="35px"
-                  viewBox="0 -960 960 960"
-                  width="35px"
-                >
-                  <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
-                </svg>
-              </div>
-            </a>
-
-            {/* Wishlist */}
-            <Link to="/wishlist" className="nav-icon">
-              <FaHeart style={{ fontSize: "22px", color: "red" }} />
-            </Link>
-
-            {/* Cart */}
-            <div className="nav-icon" onClick={() => navigate("/cartPage")} style={{ cursor: "pointer" }}>
-              <svg
-                style={{ color: 'black', opacity: '70%' }}
-                xmlns="http://www.w3.org/2000/svg"
-                height="35px"
-                viewBox="0 -960 960 960"
-                width="35px"
-              >
-                <path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z" />
-              </svg>
+          <Link to="/" className="flex items-center gap-3 no-underline group">
+            <div className="relative">
+              <img
+                src="/assets/images/logo.png"
+                alt="GlowMuse Logo"
+                className="h-12 w-12 object-contain transition-transform group-hover:rotate-12"
+              />
+              <div className="absolute -inset-1 bg-pink-200 rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity"></div>
             </div>
+            <span className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-pink-600 transition-colors playfair">
+              GlowMuse
+            </span>
+          </Link>
+
+          {/* Search Bar - Hidden on mobile, shown on md+ */}
+          <div className="hidden md:flex flex-1 max-w-lg mx-8">
+            <form onSubmit={handleSearch} className="relative w-full group">
+              <input
+                type="text"
+                className="w-full bg-white/50 border border-pink-100 rounded-2xl py-2.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:bg-white transition-all text-sm placeholder:text-gray-400"
+                placeholder="Search beauty essentials..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-pink-500 transition-colors" size={18} />
+            </form>
+          </div>
+
+          {/* Action Icons */}
+          <div className="flex items-center gap-2 sm:gap-6">
+            <Link to="/login" className="text-gray-600 hover:text-pink-600 transition-colors p-2 rounded-xl hover:bg-pink-50" title="Profile">
+              <User size={24} strokeWidth={1.5} />
+            </Link>
+            <Link to="/wishlist" className="text-gray-600 hover:text-red-500 transition-colors p-2 rounded-xl hover:bg-red-50 relative group" title="Wishlist">
+              <Heart size={24} strokeWidth={1.5} className="group-hover:fill-current" />
+            </Link>
+            <button
+              onClick={() => navigate("/cartPage")}
+              className="text-gray-600 hover:text-pink-600 transition-colors p-2 rounded-xl hover:bg-pink-50"
+              title="Shopping Bag"
+            >
+              <ShoppingBag size={24} strokeWidth={1.5} />
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="md:hidden text-gray-600 p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
         </div>
-      </nav>
-    </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-pink-50 px-4 pt-2 pb-6 space-y-4">
+          <form onSubmit={handleSearch} className="relative w-full">
+            <input
+              type="text"
+              className="w-full bg-pink-50 border-none rounded-xl py-3 pl-12 pr-4 focus:ring-2 focus:ring-pink-400"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+          </form>
+          <div className="grid grid-cols-2 gap-4">
+            <Link to="/product" className="py-3 px-4 bg-pink-50 rounded-xl text-center font-medium text-pink-700">Shop All</Link>
+            <Link to="/about" className="py-3 px-4 bg-gray-50 rounded-xl text-center font-medium text-gray-700">About Us</Link>
+          </div>
+        </div>
+      )}
+    </nav>
   );
 }
 
 export default Navbar;
+

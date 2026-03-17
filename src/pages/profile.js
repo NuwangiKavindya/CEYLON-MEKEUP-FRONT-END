@@ -1,18 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { fetchUserProfile } from "../api/data";
 
 export default function MakeupUserProfile() {
-  const navigate = useNavigate();  // ✅ create navigate function
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const response = await fetchUserProfile();
+        setUser(response.data);
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+        setError("Failed to load profile.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    getProfile();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  if (loading) return <div className="text-center p-20 text-pink-700">Loading profile...</div>;
+  if (error) return <div className="text-center p-20 text-red-500">{error}</div>;
 
   return (
     <div className="min-h-screen bg-pink-50 text-pink-900 p-6">
       <div className="max-w-6xl mx-auto space-y-6">
-        
+
         {/* Header */}
         <header className="flex items-center justify-between">
           <h1 className="text-3xl font-bold text-pink-700">My Profile</h1>
-          <button className="px-4 py-2 rounded-lg bg-pink-600 text-white hover:bg-pink-700">
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 rounded-lg bg-pink-600 text-white hover:bg-pink-700"
+          >
             Logout
           </button>
         </header>
@@ -22,12 +52,12 @@ export default function MakeupUserProfile() {
             <div className="bg-white rounded-xl shadow p-6 border border-pink-100">
               <div className="flex items-center gap-4">
                 <div className="size-16 rounded-full bg-pink-200 flex items-center justify-center text-lg font-semibold text-pink-700">
-                  NK
+                  {user?.firstname?.charAt(0)}{user?.secondname?.charAt(0)}
                 </div>
                 <div>
-                  <p className="font-semibold">Nuwangi Kavindya</p>
-                  <p className="text-sm text-pink-500">nuwangi@.com</p>
-                  <p className="text-sm text-pink-500">+94 72345678</p>
+                  <p className="font-semibold">{user?.firstname} {user?.secondname}</p>
+                  <p className="text-sm text-pink-500">{user?.email}</p>
+                  <p className="text-sm text-pink-500">{user?.dateofbirth ? new Date(user.dateofbirth).toLocaleDateString() : "No DOB"}</p>
                 </div>
               </div>
 

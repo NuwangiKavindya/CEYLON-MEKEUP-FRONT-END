@@ -1,6 +1,6 @@
 // src/pages/AddMakeupProduct.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import { axiosInstance } from '../api/auth';
 import './addMakeupProduct.css'; // Optional: Add custom styles
 
 function AddMakeupProduct() {
@@ -31,7 +31,7 @@ function AddMakeupProduct() {
     });
 
     try {
-      await axios.post('http://localhost:5001/api/products', data, {
+      await axiosInstance.post('products', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
